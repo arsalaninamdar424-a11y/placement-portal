@@ -13,6 +13,11 @@ app.use(express.json());
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/jobs", require("./routes/jobRoutes"));
 app.use("/api/applications", require("./routes/applicationRoutes"));
+app.use("/api/user", require("./routes/userRoutes"))
+
+const adminRoutes = require("./routes/adminRoutes");
+
+app.use("/api/admin", adminRoutes);
 
 // Test route
 app.get("/", (req, res) => {
@@ -26,7 +31,7 @@ mongoose
     console.log("✅ MongoDB Connected Successfully");
 
     app.listen(5000, () => {
-      console.log("🚀 Server running on port 5000");
+      console.log(" Server running on port 5000");
     });
   })
   .catch((err) => {

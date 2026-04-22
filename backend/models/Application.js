@@ -3,17 +3,23 @@ const mongoose = require("mongoose");
 const applicationSchema = new mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    required: true,
   },
   job: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Job"
+    ref: "Job",
+    required: true,
   },
   status: {
     type: String,
-    enum: ["Applied", "Shortlisted", "Rejected"],
-    default: "Applied"
-  }
+    enum: ["Pending", "Selected", "Rejected"],
+    default: "Pending",
+  },
+  appliedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("Application", applicationSchema);
