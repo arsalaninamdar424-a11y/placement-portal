@@ -21,6 +21,9 @@ function App() {
         {/* 📊 DASHBOARD */}
         <Route path="/student" element={<StudentDashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<Home />} />
+        <Route path="/contact" element={<Home />} />
 
       </Routes>
     </Router>
