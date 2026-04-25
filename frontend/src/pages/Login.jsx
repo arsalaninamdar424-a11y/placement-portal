@@ -1,43 +1,93 @@
 import { useState } from "react";
-import API from "../services/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { loginUser } from "../services/authService";
 
 function Login() {
-  const [form, setForm] = useState({});
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const res = await API.post("/auth/login", form);
-    localStorage.setItem("token", res.data.token);
-    navigate("/dashboard");
+    try {
+      console.log("Sending Data:", { email, password });
+
+      const res = await loginUser({ email, password });
+
+      console.log("FULL RESPONSE:", res);
+
+      // 🔥 UNIVERSAL USER EXTRACTION (handles all backend cases)
+      const user =
+        res.user ||           // case 1: { user: {...} }
+        res.data?.user ||     // case 2: { data: { user: {...} } }
+        res;                  // case 3: { role: "admin", ... }
+
+      console.log("USER:", user);
+
+      // ❌ safety check
+      if (!user || !user.role) {
+        alert("Login success but role missing ❌");
+        return;
+      }
+
+      // ✅ store user
+      localStorage.setItem("user", JSON.stringify(user));
+
+      alert("Login Success ✅");
+
+      // 🔥 ROLE BASED REDIRECT
+      if (user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/student");
+      }
+
+    } catch (err) {
+      console.error("LOGIN ERROR:", err.response?.data || err.message);
+      alert(err.response?.data?.message || "Login Failed ❌");
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
 
-      <div className="bg-white p-8 rounded-xl shadow-md w-96">
+      <div className="bg-white p-8 rounded-xl shadow w-96">
 
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">
+          Login
+        </h2>
 
+        {/* EMAIL */}
         <input
-          className="w-full mb-3 p-2 border rounded"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full p-3 mb-4 border rounded"
           placeholder="Email"
-          onChange={(e)=>setForm({...form,email:e.target.value})}
         />
 
+        {/* PASSWORD */}
         <input
-          className="w-full mb-3 p-2 border rounded"
-          placeholder="Password"
           type="password"
-          onChange={(e)=>setForm({...form,password:e.target.value})}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full p-3 mb-4 border rounded"
+          placeholder="Password"
         />
 
+        {/* BUTTON */}
         <button
           onClick={handleLogin}
-          className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         >
           Login
         </button>
+
+        {/* LINK */}
+        <p className="text-center mt-4">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-blue-600">
+            Signup
+          </Link>
+        </p>
 
       </div>
     </div>
