@@ -1,4 +1,5 @@
 import API from "./api";
+import { jwtDecode } from "jwt-decode";
 
 // ✅ REGISTER
 export const registerUser = async (userData) => {
@@ -10,13 +11,27 @@ export const registerUser = async (userData) => {
 export const loginUser = async (userData) => {
   const res = await API.post("/auth/login", userData);
 
-  localStorage.setItem("token", res.data.token);
-  localStorage.setItem("user", JSON.stringify(res.data.user)); // 🔥 store user
+  const token = res.data.token;
 
-  return res.data;
+  // ✅ store token
+  localStorage.setItem("token", token);
+
+  // 🔥 decode token to get user info
+  const decoded = jwtDecode(token);
+
+  const user = {
+    id: decoded.id,
+    role: decoded.role,
+  };
+
+  // ✅ store user
+  localStorage.setItem("user", JSON.stringify(user));
+
+  return { token, user };
 };
 
 // ✅ LOGOUT
 export const logoutUser = () => {
-  localStorage.clear();
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
 };

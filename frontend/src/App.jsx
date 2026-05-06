@@ -8,24 +8,41 @@ import AdminDashboard from "./pages/AdminDashboard";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function App() {
   return (
     <Router>
       <Routes>
 
-        {/* 🔥 LANDING PAGE */}
-        <Route path="/" element={<Home />} />
-
-        {/* 🔐 AUTH */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-
-        {/* 📊 DASHBOARD */}
-        <Route path="/student" element={<StudentDashboard />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        {/* 🌐 PUBLIC ROUTES */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+
+        {/* 🔐 AUTH ROUTES */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* 🎓 STUDENT DASHBOARD (PROTECTED) */}
+        <Route
+          path="/student"
+          element={
+            <ProtectedRoute>
+              <StudentDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 🧑‍💼 ADMIN DASHBOARD (PROTECTED) */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
 
       </Routes>
     </Router>
