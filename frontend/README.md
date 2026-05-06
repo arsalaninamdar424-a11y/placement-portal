@@ -106,12 +106,23 @@ npm start
 
 ## 📸 Screenshots
 
-Add your project screenshots here:
+### 🏠 Home Page
+![Home](/screenshots/home.png)
 
-```
-![Home Page](./screenshots/home.png)
-![Dashboard](./screenshots/dashboard.png)
-```
+### 📊 Dashboard
+![Dashboard](/screenshots/dashboard.png)
+
+### ℹ️ About
+![About](/screenshots/about.png)
+
+### 📞 Contact
+![Contact](/screenshots/contact.png)
+
+### 🔐 Login
+![Login](/screenshots/login.png)
+
+### 📝 Signup
+![Signup](/screenshots/signup.png)
 
 ---
 
