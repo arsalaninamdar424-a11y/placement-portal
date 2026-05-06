@@ -1,26 +1,39 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
-// 🔥 CREATE CONTEXT
+// CREATE CONTEXT
 const AuthContext = createContext();
 
-// 🔥 PROVIDER
+// PROVIDER
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // ✅ Load user from localStorage on refresh
+  // LOAD USER FROM STORAGE
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    try {
+      const storedUser = localStorage.getItem("user");
+
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    } catch (err) {
+      console.error("Invalid user data", err);
+      localStorage.removeItem("user");
+    } finally {
+      setLoading(false);
     }
   }, []);
 
-  // 🔥 LOGIN
-  const login = (userData) => {
+  // LOGIN
+  const login = (userData, token) => {
+    localStorage.setItem("user", JSON.stringify(userData));
+    if (token) {
+      localStorage.setItem("token", token);
+    }
     setUser(userData);
   };
 
-  // 🔥 LOGOUT
+  // LOGOUT
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -28,13 +41,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// 🔥 CUSTOM HOOK (easy use)
+// CUSTOM HOOK
 export const useAuth = () => {
   return useContext(AuthContext);
 };

@@ -9,43 +9,56 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
-    <Router>
-      <Routes>
+    <AuthProvider>
+      <Router>
+        <Routes>
 
-        {/* 🌐 PUBLIC ROUTES */}
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+          {/* PUBLIC ROUTES */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
 
-        {/* 🔐 AUTH ROUTES */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+          {/* AUTH ROUTES */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-        {/* 🎓 STUDENT DASHBOARD (PROTECTED) */}
-        <Route
-          path="/student"
-          element={
-            <ProtectedRoute>
-              <StudentDashboard />
-            </ProtectedRoute>
-          }
-        />
+          {/* STUDENT ROUTE */}
+          <Route
+            path="/student"
+            element={
+              <ProtectedRoute role="student">
+                <StudentDashboard />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* 🧑‍💼 ADMIN DASHBOARD (PROTECTED) */}
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
+          {/* ADMIN ROUTE */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
 
-      </Routes>
-    </Router>
+          {/* 404 PAGE */}
+          <Route
+            path="*"
+            element={
+              <h1 className="text-center mt-20 text-2xl">
+                404 - Page Not Found
+              </h1>
+            }
+          />
+
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

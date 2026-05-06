@@ -12,42 +12,41 @@ function Login() {
   const { login } = useAuth(); // 🔥 context
 
   const handleLogin = async () => {
-    try {
-      setLoading(true);
+  if (!email || !password) {
+    return alert("All fields are required ❌");
+  }
 
-      console.log("Sending Data:", { email, password });
+  try {
+    setLoading(true);
 
-      // ✅ loginUser already returns { token, user }
-      const res = await loginUser({ email, password });
+    const res = await loginUser({ email, password });
 
-      console.log("RESPONSE:", res);
+    const { user, token } = res;
 
-      const { user } = res;
-
-      if (!user || !user.role) {
-        alert("Login failed ❌");
-        return;
-      }
-
-      // 🔥 store in context
-      login(user);
-
-      alert("Login Success ✅");
-
-      // 🔥 redirect
-      if (user.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/student");
-      }
-
-    } catch (err) {
-      console.error("LOGIN ERROR:", err.response?.data || err.message);
-      alert(err.response?.data?.message || "Login Failed ❌");
-    } finally {
-      setLoading(false);
+    if (!user || !user.role || !token) {
+      alert("Invalid login response ❌");
+      return;
     }
-  };
+
+    // ✅ SAVE IN CONTEXT + LOCALSTORAGE
+    login(user, token);
+
+    alert("Login Success ✅");
+
+    // REDIRECT
+    if (user.role === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/student");
+    }
+
+  } catch (err) {
+    console.error("LOGIN ERROR:", err.response?.data || err.message);
+    alert(err.response?.data?.message || "Login Failed ❌");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

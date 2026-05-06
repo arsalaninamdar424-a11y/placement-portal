@@ -1,21 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
-import { logoutUser } from "../services/authService";
+import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const navigate = useNavigate();
-
-  const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
-    logoutUser();
+    logout();
     navigate("/login");
   };
 
   return (
     <nav className="bg-white border-b shadow-sm px-10 py-4 flex justify-between items-center sticky top-0 z-50">
 
-      {/* 🔷 LOGO */}
+      {/* LOGO */}
       <h1
         onClick={() => navigate("/")}
         className="text-2xl font-bold text-blue-600 cursor-pointer"
@@ -23,7 +21,7 @@ function Navbar() {
         Placement Portal
       </h1>
 
-      {/* 🔷 LINKS */}
+      {/* LINKS */}
       <div className="flex items-center gap-6 text-gray-700 font-medium">
 
         <Link to="/" className="hover:text-blue-600 transition">
@@ -38,7 +36,7 @@ function Navbar() {
           Contact
         </Link>
 
-        {!token ? (
+        {!user ? (
           <>
             <Link
               to="/login"
@@ -56,12 +54,12 @@ function Navbar() {
           </>
         ) : (
           <>
-            {/* 🔥 ROLE BADGE */}
+            {/* ROLE BADGE */}
             <span className="text-sm bg-gray-100 px-3 py-1 rounded-full">
               {user?.role === "admin" ? "Admin" : "Student"}
             </span>
 
-            {/* 🔥 DASHBOARD */}
+            {/* DASHBOARD */}
             {user?.role === "admin" ? (
               <Link
                 to="/admin"
@@ -78,7 +76,7 @@ function Navbar() {
               </Link>
             )}
 
-            {/* 🔥 LOGOUT */}
+            {/* LOGOUT */}
             <button
               onClick={handleLogout}
               className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 transition"
