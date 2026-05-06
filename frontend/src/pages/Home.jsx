@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -6,133 +7,142 @@ function Home() {
 
       <Navbar />
 
-      {/* 🔷 HERO */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-24 text-center">
-        <h1 className="text-5xl font-bold mb-4">
+      {/* HERO */}
+      <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-28 text-center px-6">
+        <h1 className="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">
           Build Your Career 🚀
         </h1>
-        <p className="text-lg mb-6">
-          Connect students with top companies and unlock opportunities
+
+        <p className="text-lg md:text-xl mb-8 text-gray-200">
+          Connect with top companies and unlock your future opportunities
         </p>
 
-        <a
-          href="/register"
-          className="bg-white text-blue-600 px-6 py-3 rounded font-semibold hover:bg-gray-200"
+        <Link
+          to="/register"
+          className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
         >
           Get Started
-        </a>
+        </Link>
       </section>
 
-      {/* 🔷 ABOUT */}
-      <section className="py-16 px-10 bg-gray-100">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
+      {/* ABOUT */}
+      <section className="py-20 px-6 md:px-12 bg-gray-100">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
 
-          {/* Image */}
-          <img
-            src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d"
-            alt="about"
-            className="rounded-xl shadow-lg"
-          />
+          <div className="overflow-hidden rounded-2xl shadow-lg">
+            <img
+              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d"
+              alt="about"
+              className="w-full h-full object-cover hover:scale-105 transition duration-500"
+            />
+          </div>
 
-          {/* Content */}
           <div>
-            <h2 className="text-3xl font-bold mb-4">
+            <h2 className="text-4xl font-bold mb-5">
               About Our Platform
             </h2>
-            <p className="text-gray-700 mb-4">
+
+            <p className="text-gray-700 mb-4 leading-relaxed">
               Our placement portal connects students with top recruiters,
               making the hiring process simple, transparent, and efficient.
             </p>
-            <p className="text-gray-700">
-              Students can apply to jobs, track applications, and build
-              their careers while companies find the best talent.
+
+            <p className="text-gray-700 leading-relaxed">
+              Apply for jobs, track your applications, and build your
+              career while companies find the best talent effortlessly.
             </p>
           </div>
 
         </div>
       </section>
 
-      {/* 🔷 FEATURES */}
-      <section className="py-16 px-10">
-        <h2 className="text-3xl font-bold text-center mb-10">
+      {/* FEATURES */}
+      <section className="py-20 px-6 md:px-12">
+        <h2 className="text-4xl font-bold text-center mb-12">
           Features
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
 
-          <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-            <h3 className="font-bold text-lg mb-2">🎯 Easy Apply</h3>
-            <p>Apply to jobs quickly with one click.</p>
+          <div className="bg-white p-6 rounded-2xl shadow hover:shadow-xl transition">
+            <h3 className="font-bold text-lg mb-3">🎯 Easy Apply</h3>
+            <p className="text-gray-600">
+              Apply to jobs quickly with just one click.
+            </p>
           </div>
 
-          <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-            <h3 className="font-bold text-lg mb-2">📊 Track Status</h3>
-            <p>Monitor your application progress.</p>
+          <div className="bg-white p-6 rounded-2xl shadow hover:shadow-xl transition">
+            <h3 className="font-bold text-lg mb-3">📊 Track Status</h3>
+            <p className="text-gray-600">
+              Monitor your application progress in real-time.
+            </p>
           </div>
 
-          <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-            <h3 className="font-bold text-lg mb-2">🏢 Company Access</h3>
-            <p>Companies can post jobs and hire easily.</p>
+          <div className="bg-white p-6 rounded-2xl shadow hover:shadow-xl transition">
+            <h3 className="font-bold text-lg mb-3">🏢 Company Access</h3>
+            <p className="text-gray-600">
+              Companies can post jobs and hire easily.
+            </p>
           </div>
 
         </div>
       </section>
 
-      {/* 🔷 CONTACT */}
-      <section className="bg-gray-100 py-16 px-10">
-        <h2 className="text-3xl font-bold text-center mb-8">
+      {/* CONTACT */}
+      <section className="bg-gray-100 py-20 px-6 md:px-12">
+        <h2 className="text-4xl font-bold text-center mb-10">
           Contact Us
         </h2>
 
-        <div className="max-w-xl mx-auto">
+        <div className="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow">
           <input
-            className="w-full p-3 mb-4 border rounded"
+            className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Your Name"
           />
+
           <input
-            className="w-full p-3 mb-4 border rounded"
+            className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Email"
           />
+
           <textarea
-            className="w-full p-3 mb-4 border rounded"
+            className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Message"
           />
-          <button className="bg-blue-600 text-white px-6 py-2 rounded w-full">
+
+          <button className="bg-blue-600 text-white px-6 py-2 rounded-lg w-full hover:bg-blue-700 transition">
             Send Message
           </button>
         </div>
       </section>
 
-      {/* 🔷 FOOTER */}
-      <footer className="bg-gray-900 text-white py-10 px-10">
-        <div className="grid md:grid-cols-3 gap-8">
+      {/* FOOTER */}
+      <footer className="bg-gray-900 text-white py-12 px-6 md:px-12">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
 
-          {/* Left */}
           <div>
             <h3 className="text-xl font-bold mb-2">Placement Portal</h3>
             <p className="text-gray-400">
-              A modern platform connecting students and companies for better career opportunities.
+              Connecting students and companies for better career opportunities.
             </p>
           </div>
 
-          {/* Middle */}
           <div>
-            <h3 className="font-bold mb-2">Navigate</h3>
-            <p>Home</p>
-            <p>About</p>
-            <p>Contact</p>
+            <h3 className="font-bold mb-2">Quick Links</h3>
+            <p className="text-gray-400 hover:text-white cursor-pointer">Home</p>
+            <p className="text-gray-400 hover:text-white cursor-pointer">About</p>
+            <p className="text-gray-400 hover:text-white cursor-pointer">Contact</p>
           </div>
 
-          {/* Right */}
           <div>
             <h3 className="font-bold mb-2">Office Hours</h3>
-            <p>Mon - Fri: 9 AM - 6 PM</p>
-            <p>Sat: 10 AM - 4 PM</p>
+            <p className="text-gray-400">Mon - Fri: 9 AM - 6 PM</p>
+            <p className="text-gray-400">Sat: 10 AM - 4 PM</p>
           </div>
 
         </div>
 
-        <p className="text-center text-gray-500 mt-6">
+        <p className="text-center text-gray-500 mt-8">
           © 2026 Placement Portal
         </p>
       </footer>
