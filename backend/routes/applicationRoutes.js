@@ -5,20 +5,55 @@ const auth = require("../middleware/authMiddleware");
 
 
 // ✅ APPLY
-router.post("/", auth, async (req, res) => {
+// router.post("/", auth, async (req, res) => {
+//   try {
+//     const application = new Application({
+//       student: req.user.id,
+//       job: req.body.job,
+//     });
+
+//     await application.save();
+//     res.json(application);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+
+router.post("/:jobId", auth, async (req, res) => {
   try {
+
+    // ✅ Check duplicate application
+    const existing = await Application.findOne({
+      student: req.user.id,
+      job: req.params.jobId,
+    });
+
+    if (existing) {
+      return res.status(400).json({
+        message: "Already applied for this job ❌",
+      });
+    }
+
+    // ✅ Create application
     const application = new Application({
       student: req.user.id,
-      job: req.body.job,
+      job: req.params.jobId,
     });
 
     await application.save();
-    res.json(application);
+
+    res.json({
+      message: "Application submitted successfully ✅",
+      application,
+    });
+
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({
+      error: err.message,
+    });
   }
 });
-
 
 // ✅ GET
 router.get("/", async (req, res) => {
