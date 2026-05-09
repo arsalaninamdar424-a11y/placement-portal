@@ -8,7 +8,7 @@ function Home() {
       <Navbar />
 
       {/* HERO */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-28 text-center px-6">
+      {/* <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-28 text-center px-6">
         <h1 className="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">
           Build Your Career 🚀
         </h1>
@@ -23,7 +23,112 @@ function Home() {
         >
           Get Started
         </Link>
-      </section>
+      </section> */}
+
+      <section className="relative overflow-hidden bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 text-white py-32 px-6">
+
+  <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+    {/* LEFT */}
+    <div>
+
+      <p className="uppercase tracking-widest text-blue-200 mb-4">
+        Smart Career Platform
+      </p>
+
+      <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+        Find Your Dream Job With <br />
+        HireUp 🚀
+      </h1>
+
+      <p className="text-lg text-gray-200 mb-8 leading-relaxed">
+        Connect with top recruiters, apply for opportunities,
+        and manage your career journey with our modern placement portal.
+      </p>
+
+      <div className="flex flex-wrap gap-4">
+
+        <Link
+          to="/register"
+          className="bg-white text-blue-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-200 transition"
+        >
+          Get Started
+        </Link>
+
+        <Link
+          to="/login"
+          className="border border-white px-8 py-3 rounded-xl hover:bg-white hover:text-blue-700 transition"
+        >
+          Login
+        </Link>
+
+      </div>
+
+      {/* STATS */}
+      <div className="flex gap-10 mt-12">
+
+        <div>
+          <h2 className="text-3xl font-bold">500+</h2>
+          <p className="text-gray-300">Students</p>
+        </div>
+
+        <div>
+          <h2 className="text-3xl font-bold">120+</h2>
+          <p className="text-gray-300">Companies</p>
+        </div>
+
+        <div>
+          <h2 className="text-3xl font-bold">1K+</h2>
+          <p className="text-gray-300">Applications</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    {/* RIGHT CARD */}
+    <div className="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-3xl shadow-2xl">
+
+      <h2 className="text-2xl font-bold mb-6">
+        Why Choose Us?
+      </h2>
+
+      <div className="space-y-5">
+
+        <div className="bg-white/10 p-4 rounded-xl">
+          <h3 className="font-semibold mb-1">
+            🎯 One Click Apply
+          </h3>
+          <p className="text-gray-200 text-sm">
+            Apply to opportunities instantly.
+          </p>
+        </div>
+
+        <div className="bg-white/10 p-4 rounded-xl">
+          <h3 className="font-semibold mb-1">
+            📊 Real-time Tracking
+          </h3>
+          <p className="text-gray-200 text-sm">
+            Monitor application progress easily.
+          </p>
+        </div>
+
+        <div className="bg-white/10 p-4 rounded-xl">
+          <h3 className="font-semibold mb-1">
+            🏢 Top Recruiters
+          </h3>
+          <p className="text-gray-200 text-sm">
+            Connect with leading companies.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
       {/* ABOUT */}
       <section className="py-20 px-6 md:px-12 bg-gray-100">

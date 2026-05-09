@@ -43,3 +43,8 @@ export const uploadResume = async (file) => {
 
   return res.data;
 };
+
+export const createJob = async (jobData) => {
+  const res = await API.post("/jobs", jobData);
+  return res.data;
+};

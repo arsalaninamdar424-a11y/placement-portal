@@ -7,7 +7,7 @@ function Navbar() {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -18,7 +18,7 @@ function Navbar() {
         onClick={() => navigate("/")}
         className="text-2xl font-bold text-blue-600 cursor-pointer"
       >
-        Placement Portal
+        HireUp
       </h1>
 
       {/* LINKS */}
