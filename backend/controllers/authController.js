@@ -32,12 +32,20 @@ export const login = async (req, res) => {
     }
 
     // ✅ generate token
+    // const token = jwt.sign(
+    //   { id: user._id },
+    //   "secretkey",
+    //   { expiresIn: "1d" }
+    // );
+
     const token = jwt.sign(
-      { id: user._id },
+      {
+        id: user._id,
+        role: user.role,
+      },
       "secretkey",
       { expiresIn: "1d" }
     );
-
     // ✅ IMPORTANT RESPONSE
     res.json({
       token,

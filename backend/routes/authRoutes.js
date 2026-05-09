@@ -6,9 +6,30 @@ const jwt = require("jsonwebtoken");
 
 
 // ✅ REGISTER
+// router.post("/register", async (req, res) => {
+//   try {
+//     const { name, email, password } = req.body;
+
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     const user = new User({
+//       name,
+//       email,
+//       password: hashedPassword,
+//     });
+
+//     await user.save();
+//     res.json({ message: "User registered" });
+
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+
 router.post("/register", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -16,16 +37,21 @@ router.post("/register", async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      role, // ✅ IMPORTANT
     });
 
     await user.save();
-    res.json({ message: "User registered" });
+
+    res.json({
+      message: "User registered",
+    });
 
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({
+      error: err.message,
+    });
   }
 });
-
 
 // ✅ LOGIN
 router.post("/login", async (req, res) => {
@@ -46,8 +72,16 @@ router.post("/login", async (req, res) => {
     const generateToken = require("../utils/generateToken");
 
     const token = generateToken(user);
-    
-    res.json({ token });
+
+    res.json({
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
 
   } catch (err) {
     res.status(500).json({ error: err.message });
